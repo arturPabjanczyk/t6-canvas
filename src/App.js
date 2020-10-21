@@ -9,6 +9,8 @@ class CanvasExample extends React.Component {
 
     draw() {
         const ctx = this.canvas.current.getContext("2d");
+        const {size} = this.props;
+        ctx.clearRect(0, 0, size, size);
     }
 
     render() {
