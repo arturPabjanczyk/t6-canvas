@@ -15,8 +15,9 @@ class CanvasExample extends React.Component {
         ctx.save();
         ctx.translate(size/2,size/2);
         for (let i = 0; i < rectanglesCount; ++i) {
-            const rectangleSize = (size * (i + 1.0)) / rectanglesCount;
-            const angle = size * (i + 1);
+            const ratio = size * (i + 1);
+            const rectangleSize = ratio / rectanglesCount;
+            const angle = ratio;
             ctx.save();
             ctx.rotate(angle);
             ctx.translate(-rectangleSize/2, -rectangleSize/2);
