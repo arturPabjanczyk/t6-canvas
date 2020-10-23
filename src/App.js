@@ -9,11 +9,15 @@ class CanvasExample extends React.Component {
 
     draw() {
         const ctx = this.canvas.current.getContext("2d");
-        const {size} = this.props;
+        const {size, rectanglesCount} = this.props;
         ctx.clearRect(0, 0, size, size);
         ctx.fillStyle = "rgba(0, 150, 0, 0.2)";
-        ctx.fillRect(30, 30, 150, 150);
+        for (let i = 0; i < rectanglesCount; i++) {
+            const rectangleSize = size * (i + 1.0) / rectanglesCount;
+            ctx.fillRect(0, 0, rectangleSize, rectangleSize);
+        }
     }
+
     componentDidMount() {
         this.draw();
     }
@@ -28,7 +32,7 @@ function App() {
     return (
         <div className="App">
             <h1>Hello Canvas</h1>
-            <CanvasExample size={300}/>
+            <CanvasExample size={300} rectanglesCount={10}/>
         </div>
     );
 }
