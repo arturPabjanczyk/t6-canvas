@@ -14,7 +14,11 @@ class CanvasExample extends React.Component {
         ctx.fillStyle = "rgba(0, 150, 0, 0.2)";
         for (let i = 0; i < rectanglesCount; i++) {
             const rectangleSize = size * (i + 1.0) / rectanglesCount;
+            const angle = size * (i + 1);
+            ctx.save();
+            ctx.rotate(angle);
             ctx.fillRect(0, 0, rectangleSize, rectangleSize);
+            ctx.restore();
         }
     }
 
