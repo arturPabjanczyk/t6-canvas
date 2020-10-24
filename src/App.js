@@ -32,19 +32,48 @@ class CanvasExample extends React.Component {
         this.draw();
     }
 
+    componentDidUpdate() {
+        this.draw();
+    }
+
     render() {
         const {size} = this.props;
         return <canvas ref={this.canvas} style={{border: "1px solid gray"}} width={size} height={size}/>
     }
 }
 
-function App() {
-    return (
-        <div className="App">
-            <h1>Hello Canvas</h1>
-            <CanvasExample size={300} rectanglesCount={10}/>
-        </div>
-    );
+class App extends React.Component {
+    state = {
+        rectangleCount: 10
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <h1>Hello Canvas</h1>
+                <button
+                    onClick={() => {
+                        this.setState(prevState => ({
+                            rectangleCount: prevState.rectangleCount - 1
+                        }))
+                    }}
+                >
+                    -1
+                </button>
+                <button
+                    onClick={() => {
+                        this.setState(prevState => ({
+                            rectangleCount: prevState.rectangleCount + 1
+                        }))
+                    }}
+                >
+                    +1
+                </button>
+                <br/>
+                <CanvasExample size={300} rectanglesCount={this.state.rectangleCount}/>
+            </div>
+        );
+    }
 }
 
 export default App;
