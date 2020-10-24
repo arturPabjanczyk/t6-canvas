@@ -5,14 +5,16 @@ class CanvasExample extends React.Component {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
+    this.time = 0;
   }
 
   componentDidMount() {
     this.draw();
+    this.animationRequestId = window.requestAnimationFrame(this.update)
   }
 
-  componentDidUpdate() {
-    this.draw();
+  componentWillUnmount() {
+    window.cancelAnimationFrame(this.animationRequestId);
   }
 
   draw() {
@@ -28,7 +30,7 @@ class CanvasExample extends React.Component {
       const rectangleSize = ratio / rectanglesCount;
       const angle = ratio;
       ctx.save();
-      ctx.rotate(angle);
+      ctx.rotate(angle + this.time);
       ctx.translate(-rectangleSize / 2, -rectangleSize / 2);
       ctx.fillRect(0, 0, rectangleSize, rectangleSize);
       ctx.restore();
@@ -36,7 +38,13 @@ class CanvasExample extends React.Component {
     ctx.restore();
   }
 
-    render() {
+  update = () => {
+    this.time += 0.02;
+    this.draw();
+    this.animationRequestId = window.requestAnimationFrame(this.update)
+  }
+
+  render() {
     const {size} = this.props;
     return <canvas
       ref={this.canvas}
